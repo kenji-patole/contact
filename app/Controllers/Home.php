@@ -5,7 +5,9 @@ namespace App\Controllers;
 class Home extends BaseController
 {
 	public function index()
-	{
-		return view('site/index');
+	{	
+		echo view('common/HeaderSite');
+		echo view('Site/Index');
+		echo view('common/FooterSite');
 	}
 }

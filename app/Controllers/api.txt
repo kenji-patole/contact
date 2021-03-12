@@ -1,0 +1,49 @@
+PATOLE Kenji
+12/03/2021
+Concepteur, Développeur Certified
+
+    *****************************
+                API
+    *****************************
+
+
+***************INTRODUCTION****************** 
+
+L'API est un gestionnaire de contacts
+
+Ses fonctions sont les suivantes :
+    - créer
+    - lister
+    - éditer
+    - suprimer
+    - ajouter ou supprimer en favoris
+    
+
+FONCTIONNEMENT 
+
+Le client envoie une requête POST à l'API qui se charge de répondre en JSON. 
+Il traite les données de manière rapide, simple et puissante.
+
+FONCTIONS 
+
+*************** Create *******************
+
+La fonction CREATE permet de créer des contacts
+Les règles requises sont : 
+    - le nom
+    - le téléphone
+
+Si les règles sont respectées, l'API ajoute les données saisies en base MySQL et renvoie comme réponse TRUE.
+Si non, si elles ne sont pas respectées, l'API informe par un message d'erreur que le nom et le téléphone ne sont pas valides.
+
+
+
+
+
+
+
+
+
+
+
+

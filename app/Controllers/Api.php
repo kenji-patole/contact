@@ -50,13 +50,86 @@ class Api extends BaseController
        
 
     }
-    // La fonction EDIT peut ajouter et modifier des contacts //
+    // La fonction EDIT peut modifier des contacts //
     public function edit()
     {
 
+        $etatAction = ['response' => false];
+
+        $rules = [
+
+            'id'       => 'required',
+            'lastName' => 'required',
+            'phone'    => 'required',
+            
+            
+        ];
 
 
+            if($this->validate($rules)) {
 
+                
+                $id = $this->request->getVar('id'); 
+
+                // Je dois intérroger la base à partir de l'id pour vérifier que l'id existe en base //
+                $contact = $this->contactModel->where('id', $id)
+                                             ->first();
+
+                    if(!empty($contact)) {
+
+                        // ÉLÉMENTS A MODIFIER //
+                        $dataSave = [
+
+                            'last_Name' => $this->request->getVar('lastName'),
+                            'phone'     => $this->request->getVar('phone'),
+                            'first_Name'=> $this->request->getVar('firstName'),
+                    
+                        ];
+
+                            if($this->request->getVar('email') !='') {
+
+                                $dataSave['email'] = $this->request->getVar('email');
+
+                            }
+
+                        $this->contactModel->where('id', $id)
+                                           ->set($dataSave)
+                                           ->update();
+
+                        $etatAction = ['response' => true];
+
+
+                    } else {
+
+                        $etatAction['error']['id'] ='Le contact n\'existe pas';
+
+                    }
+                    
+            } // THE END IF VALIDATE // 
+
+            else {
+
+                if(empty($this->request->getVar('id'))) {
+
+                    $etatAction['error']['id'] ='NO ID';
+            
+                }
+
+                if(empty($this->request->getVar('lastName'))) {
+
+                    $etatAction['error']['lastName'] ='NO LASTNAME';
+            
+                }
+            
+                if (empty($this->request->getVar('phone'))) {
+
+                    $etatAction['error']['phone'] ='NO PHONE';
+
+                }
+
+            }
+
+            return $this->response->setJSON($etatAction);
 
     }
     // La fonction DELETE peut supprimer un ou plusieurs contacts //
@@ -125,6 +198,90 @@ class Api extends BaseController
 
 
     }
+
+       /**********************************************************************
+       La fonction CREATE reçoit les informations suivantes en POST via l'API
+            $this->request-getVar
+        
+                LES VALEURS : 
+
+                le nom : string, REQUIRED
+                le prénom : string
+                l'entreprise : string 
+                le métier : string
+                l'email : string
+                le téléphone : string, REQUIRED
+                les notes : string 
+                la date de création du contact : string 
+                l'image : string
+       
+       La fonction retourne : 
+        - contact créée = TRUE
+        - contact pas créée = FALSE
+       **********************************************************************/
+
+
+    // La fonction CREATE permet de créer un nouveau Contact
+    public function create()
+    {
+
+        $etatAction = ['response' => false];
+
+        $rules = [
+
+            'lastName' => 'required',
+            'phone'    => 'required',
+
+        ];
+
+            if($this->validate($rules)) {
+
+                // Intercepter le nom et le phone
+
+                // NOM
+                $lastName = $this->request->getVar('lastName');
+
+                // PHONE
+                $phone = $this->request->getVar('phone');
+
+                $dataSave = [
+
+                    'last_Name' => $this->request->getVar('lastName'),
+                    'phone'     => $this->request->getVar('phone')
+
+                ];
+
+                $this->contactModel->save($dataSave);
+
+                $etatAction = ['response' => true];
+
+
+
+            }// THE END IF VALIDATE // 
+
+            else {
+                
+
+                    if(empty($this->request->getVar('lastName'))) {
+
+                        $etatAction['error']['lastName'] ='NO LASTNAME';
+                
+                    }
+                
+                    if (empty($this->request->getVar('phone'))) {
+
+                        $etatAction['error']['phone'] ='NO PHONE';
+
+                    }
+
+            }
+        
+        
+        return $this->response->setJSON($etatAction);
+
+
+    }
+
 
 
 }

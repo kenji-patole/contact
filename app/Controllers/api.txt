@@ -7,7 +7,7 @@ Concepteur, Développeur Certified
     *****************************
 
 
-***************INTRODUCTION****************** 
+INTRODUCTION
 
 L'API est un gestionnaire de contacts
 
@@ -34,7 +34,7 @@ Les règles requises sont :
     - le téléphone
 
 Si les règles sont respectées, l'API ajoute les données saisies en base MySQL et renvoie comme réponse TRUE.
-Si non, si elles ne sont pas respectées, l'API informe par un message d'erreur que le nom et le téléphone ne sont pas valides.
+Si elles ne sont pas respectées, l'API informe par un message d'erreur que le nom et le téléphone ne sont pas valides.
 
 
 

@@ -28,10 +28,10 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = [];
-	// Pour utiliser la fonction helper ['url', 'form']
+	// Pour utiliser la fonction helper ['url', 'form', 'validation']
 	public function __construct()
     {
-		helper(['url', 'form']);
+		helper(['url', 'form', 'validation']);
 		
         $this->session = \Config\Services::session();
 		$this->session->start();
